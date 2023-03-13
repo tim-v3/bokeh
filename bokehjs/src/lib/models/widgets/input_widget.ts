@@ -75,7 +75,9 @@ export abstract class InputWidgetView extends ControlView {
         assert(description != null)
 
         const {desc_el} = this
-        description.model.target = desc_el
+        if (description.model.target == "auto") {
+          description.target = desc_el
+        }
 
         let persistent = false
 

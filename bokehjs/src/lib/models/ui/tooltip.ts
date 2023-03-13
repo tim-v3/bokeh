@@ -25,6 +25,9 @@ export class TooltipView extends UIElementView {
   get target(): Element {
     return this._target
   }
+  set target(el: Element) {
+    this._target = el
+  }
 
   protected _init_target(): void {
     const {target} = this.model
