@@ -117,7 +117,10 @@ export abstract class LayoutDOMView extends UIElementView {
   abstract get child_models(): UIElement[]
 
   get child_views(): UIElementView[] {
-    return this.child_models.map((child) => this._child_views.get(child)!)
+    // TODO: resolve a race condition between lazy_initialize and resize observer
+    return this.child_models
+      .map((child) => this._child_views.get(child))
+      .filter((child): child is UIElementView => child != null)
   }
 
   get layoutable_views(): LayoutDOMView[] {
