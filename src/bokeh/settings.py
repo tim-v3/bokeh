@@ -119,6 +119,7 @@ log = logging.getLogger(__name__)
 # Standard library imports
 import os
 from os.path import abspath, expanduser, join
+from pathlib import Path
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -737,7 +738,7 @@ class Settings:
 
     # Non-settings methods
 
-    def bokehjsdir(self) -> str:
+    def bokehjsdir(self) -> Path:
         ''' The location of the BokehJS source tree.
 
         '''
