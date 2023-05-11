@@ -52,7 +52,7 @@ p = figure(width=width, height=height, title="",
     x_axis_type=None, y_axis_type=None,
     x_range=(-420, 420), y_range=(-420, 420),
     min_border=0, outline_line_color="black",
-    background_fill_color="#f0e1d2")
+    background_fill_color="#f0e1d2", match_aspect=True)
 
 p.xgrid.grid_line_color = None
 p.ygrid.grid_line_color = None
@@ -63,6 +63,13 @@ colors = [gram_color[gram] for gram in df.gram]
 p.annular_wedge(
     0, 0, inner_radius, outer_radius, -big_angle+angles, angles, color=colors,
 )
+
+# circular axes and lables
+labels = np.power(10.0, np.arange(-3, 4))
+radii = a * np.sqrt(np.log(labels * 1E4)) + b
+p.circle(0, 0, radius=radii, fill_color=None, line_color="white")
+p.text(0, radii[:-1], ["0.001", "0.01", "0.1", "1.0", "10.0", "100.0"],
+       text_font_size="11px", text_align="center", text_baseline="middle")
 
 # small wedges
 p.annular_wedge(0, 0, inner_radius, rad(df.penicillin),
@@ -75,12 +82,6 @@ p.annular_wedge(0, 0, inner_radius, rad(df.neomycin),
                 -big_angle+angles+1*small_angle, -big_angle+angles+2*small_angle,
                 color=drug_color['Neomycin'])
 
-# circular axes and lables
-labels = np.power(10.0, np.arange(-3, 4))
-radii = a * np.sqrt(np.log(labels * 1E4)) + b
-p.circle(0, 0, radius=radii, fill_color=None, line_color="white")
-p.text(0, radii[:-1], [str(r) for r in labels[:-1]],
-       text_font_size="11px", text_align="center", text_baseline="middle")
 
 # radial axes
 p.annular_wedge(0, 0, inner_radius-10, outer_radius+10,
